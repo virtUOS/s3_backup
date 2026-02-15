@@ -1,0 +1,48 @@
+---
+## S3 host
+# s3_backup_host:
+
+## S3 credentials
+# s3_backup_access_key:
+# s3_backup_secret_key:
+
+## S3 bucket name
+# s3_backup_bucket:
+
+## S3 bucket location
+s3_backup_bucket_location: us-east-1
+
+# Backup base path
+s3_backup_base_path: /{{ inventory_hostname }}
+
+## This is the 'OnCalendar' variable
+## used in the systemd timer
+s3_backup_timer_string: "*-*-* 03:30:00"
+
+## Days to keep backups before deleting them again
+s3_backup_retention: 14
+
+## The user that executes the backup service
+s3_backup_user: root
+s3_backup_group: "{{ s3_backup_user }}"
+
+## The backup script
+## This should be a POSIX compliant shell script
+## - TEMPDIR:
+##   A temporary directory will be created and cleaned up automatically.
+##   The backup script will run in that patch. So you can just write to the local directory.
+##   If you need the path in your script, just use the TEMPDIE variable.
+## - DATE:
+##   Use the DATE variable to get the current date and time in the formnat 20260213-085111
+## - s3_put:
+##   Use the s3_put command as a shortcut to upload files to S3.
+##   The file will be uploaded to s3_backup_base_path.
+##   s3_put src/backup.sql.gz dest/backup.sql.gz
+# s3_backup_script: |
+#   FILENAME="${DATE}.sql.gz"
+#   mysqldump -u root --no-data dbname | gzip > "${TEMPDIE}/${FILENAME}"
+#   s3_put "${FILENAME}" "${FILENAME}"
+
+## Path for backup metrics
+## If empty, no metrics will be publishe
+s3_backup_metrics_path: "{{ s3_backup_base_path }}/metrics"

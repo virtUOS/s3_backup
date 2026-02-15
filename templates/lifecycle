@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<LifecycleConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Rule>
+    <ID>Retention</ID>
+    <Prefix/>
+    <Status>Enabled</Status>
+    <Expiration>
+      <Days>{{ s3_backup_retention }}</Days>
+    </Expiration>
+  </Rule>
+</LifecycleConfiguration>

@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: s3_backup
+  namespace: uos
+  author: Lars Kiesow
+  description: Simple, S3 based backup
+  company: Osnabrück University
+  license: BSD-3-Clause
+  min_ansible_version: "0.1"
+dependencies: []

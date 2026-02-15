@@ -1,0 +1,7 @@
+host_base = {{ s3_backup_host }}
+host_bucket = {{ s3_backup_host }}
+bucket_location = {{ s3_backup_bucket_location }}
+use_https = True
+access_key = {{ s3_backup_access_key }}
+secret_key = {{ s3_backup_secret_key }}
+signature_v2 = False

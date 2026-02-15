@@ -1,0 +1,68 @@
+---
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - s3cmd
+
+- name: Create script folder
+  ansible.builtin.file:
+    path: /opt/backup
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Configure backup script
+  ansible.builtin.template:
+    src: '{{ item.name }}'
+    dest: /opt/backup/{{ item.name }}
+    mode: '{{ item.mode }}'
+    owner: '{{ s3_backup_user }}'
+    group: '{{ s3_backup_group }}'
+  loop:
+    - name: backup
+      mode: '0744'
+    - name: s3cfg
+      mode: '0600'
+    - name: lifecycle
+      mode: '0644'
+
+- name: Install backup service
+  ansible.builtin.template:
+    src: '{{ item }}'
+    dest: /etc/systemd/system/{{ item }}
+    mode: '0644'
+    owner: root
+    group: root
+  loop:
+    - backup.service
+    - backup.timer
+  notify: Restart backup
+
+- name: Check for bucket lifecycle
+  ansible.builtin.command:
+    cmd: >
+      s3cmd
+      -c /opt/backup/s3cfg
+      getlifecycle
+      s3://{{ s3_backup_bucket }}
+  register: lifecycle_result
+  ignore_errors: true
+  changed_when: false
+
+- name: Set bucket lifecycle
+  ansible.builtin.command:
+    cmd: >
+      s3cmd
+      -c /opt/backup/s3cfg
+      setlifecycle
+      /opt/backup/lifecycle
+      s3://{{ s3_backup_bucket }}
+  changed_when: true
+  when: lifecycle_result is failed
+
+- name: Start backup timer
+  ansible.builtin.service:
+    name: backup.timer
+    state: started
+    enabled: true

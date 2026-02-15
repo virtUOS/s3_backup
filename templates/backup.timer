@@ -1,0 +1,8 @@
+[Unit]
+Description=Backup Timer
+
+[Timer]
+OnCalendar={{ s3_backup_timer_string }}
+
+[Install]
+WantedBy=multi-user.target

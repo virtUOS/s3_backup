@@ -1,0 +1,6 @@
+---
+- name: Restart backup
+  ansible.builtin.systemd:
+    name: backup.timer
+    state: restarted
+    daemon_reload: true
