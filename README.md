@@ -48,9 +48,8 @@ Your playbook, could look like this:
       s3_backup_secret_key: axahle6OitieweiNgoh7gai2
       s3_backup_bucket: backup
       s3_backup_script: |
-        FILENAME="${DATE}.sql.gz"
-        mysqldump -u root --no-data dbname | gzip > "${FILENAME}"
-        s3_put "${FILENAME}" "${FILENAME}"
+        mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
+        s3_put "${FILENAME}" "${DATE}.sql.gz"
 ```
 
 ## License
