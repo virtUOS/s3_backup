@@ -21,11 +21,9 @@
     group: '{{ s3_backup_group }}'
   loop:
     - name: backup
-      mode: '0744'
+      mode: '0700'
     - name: s3cfg
       mode: '0600'
-    - name: lifecycle
-      mode: '0644'
 
 - name: Install backup service
   ansible.builtin.template:
@@ -55,8 +53,8 @@
     cmd: >
       s3cmd
       -c /opt/backup/s3cfg
-      setlifecycle
-      /opt/backup/lifecycle
+      expire
+      --expiry-days '{{ s3_backup_retention }}'
       s3://{{ s3_backup_bucket }}
   changed_when: true
   when: lifecycle_result is failed

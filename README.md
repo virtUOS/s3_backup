@@ -13,6 +13,13 @@ There are the required variables you need to set:
 - `s3_backup_bucket`: Name of the S3 bucket to use
 - `s3_backup_script`: Script to backup data
 
+The retention is set to 14 days by default. Note that this is only set, if
+there is no lifecycle opolicy set on the buchet yet. This also means that *all*
+content in the bucket expires automatically. The relevant configuration
+variable is:
+
+- `s3_backup_retention`: Days after which objects in S3 expire (default: 14)
+
 Have a look at the [defaults](defaults/main.yml) to see all available variables
 and how to use them.
 
