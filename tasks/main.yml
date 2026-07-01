@@ -57,7 +57,8 @@
       --expiry-days '{{ s3_backup_retention }}'
       s3://{{ s3_backup_bucket }}
   changed_when: true
-  when: lifecycle_result is failed
+  when: lifecycle_result.stdout is not search("<Days>"~s3_backup_retention~"</Days>")
+  run_once: true
 
 - name: Start backup timer
   ansible.builtin.service:
