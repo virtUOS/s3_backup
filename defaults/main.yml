@@ -1,4 +1,10 @@
 ---
+## path for .env file for restic environment variables
+# restic_file_path:
+
+## password used to access the restic repository on the bucket
+# restic_repository_password:
+
 ## S3 host
 # s3_backup_host:
 
@@ -10,7 +16,7 @@
 # s3_backup_bucket:
 
 ## S3 bucket location
-s3_backup_bucket_location: us-east-1
+s3_backup_bucket_region: us-east-1
 
 # Backup base path
 s3_backup_base_path: /{{ inventory_hostname }}
@@ -19,8 +25,6 @@ s3_backup_base_path: /{{ inventory_hostname }}
 ## used in the systemd timer
 s3_backup_timer_string: "*-*-* 03:30:00"
 
-## Days to keep backups before deleting them again
-s3_backup_retention: 14
 
 ## The user that executes the backup service
 s3_backup_user: root
