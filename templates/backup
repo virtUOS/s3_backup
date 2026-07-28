@@ -16,13 +16,6 @@ clean_up() {
 # Set up the trap to call clean_up on exit
 trap clean_up EXIT
 
-# Configure s3cmd and provide simple s3_put command
-alias s3cmd="s3cmd -c /opt/backup/s3cfg"
-s3_put() {
-  s3path="$2"
-  s3path="$(echo "${s3path}" | sed 's_^/*__')"
-  s3cmd put "${1}" "s3://{{ s3_backup_bucket }}{{ s3_backup_base_path }}/${s3path}"
-}
 
 # Provide easy access to the current date and time
 DATE="$(date '+%Y%m%d-%H%M%S')"
@@ -33,5 +26,4 @@ DATE="$(date '+%Y%m%d-%H%M%S')"
 echo '# HELP backup_time Time stamp of backup' >"${TEMPDIR}/metrics"
 echo '# TYPE backup_time counter' >>"${TEMPDIR}/metrics"
 echo 'backup_time{host="{{ inventory_hostname }}"} '"$(date +%s)" >>"${TEMPDIR}/metrics"
-s3cmd put -P "${TEMPDIR}/metrics" s3://{{ s3_backup_bucket }}{{ s3_backup_metrics_path }}
 {% endif %}
