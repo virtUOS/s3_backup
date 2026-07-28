@@ -2,8 +2,6 @@
 ## S3 host
 # s3_backup_host:
 
-##test test
-
 ## S3 credentials
 # s3_backup_access_key:
 # s3_backup_secret_key:
@@ -20,9 +18,6 @@ s3_backup_base_path: /{{ inventory_hostname }}
 ## This is the 'OnCalendar' variable
 ## used in the systemd timer
 s3_backup_timer_string: "*-*-* 03:30:00"
-
-## Days to keep backups before deleting them again
-s3_backup_retention: 14
 
 ## The user that executes the backup service
 s3_backup_user: root

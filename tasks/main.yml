@@ -37,28 +37,6 @@
     - backup.timer
   notify: Restart backup
 
-- name: Check for bucket lifecycle
-  ansible.builtin.command:
-    cmd: >
-      s3cmd
-      -c /opt/backup/s3cfg
-      getlifecycle
-      s3://{{ s3_backup_bucket }}
-  register: lifecycle_result
-  ignore_errors: true
-  changed_when: false
-
-- name: Set bucket lifecycle
-  ansible.builtin.command:
-    cmd: >
-      s3cmd
-      -c /opt/backup/s3cfg
-      expire
-      --expiry-days '{{ s3_backup_retention }}'
-      s3://{{ s3_backup_bucket }}
-  changed_when: true
-  when: lifecycle_result is failed
-
 - name: Start backup timer
   ansible.builtin.service:
     name: backup.timer
