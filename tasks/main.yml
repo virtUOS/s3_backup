@@ -4,13 +4,8 @@
     name:
       - restic
 
-- name: Create .env file for restic
-  ansible.builtin.template:
-    src: templates/restic.env.j2
-    dest: '{{ restic_file_path }}'
-
-- name: If not done yet, initialize the restic repository
-  ansible.builtin.shell: source {{ restic_file_path }} && (restic snapshots || restic init)
+- name: If not done yet, initialize restic repository
+  ansible.builtin.shell: source /opt/backup/restic && (restic snapshots || restic init)
 
 - name: Create script folder
   ansible.builtin.file:
@@ -29,6 +24,8 @@
     group: '{{ s3_backup_group }}'
   loop:
     - name: backup
+      mode: '0700'
+    - name: restic
       mode: '0700'
 
 - name: Install backup service

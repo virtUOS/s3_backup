@@ -1,9 +1,10 @@
 ---
-## path for .env file for restic environment variables
-# restic_file_path:
-
 ## password used to access the restic repository on the bucket
 # restic_repository_password:
+
+## The maximum amount of days a snapshot is being kept, in relation to the creation time of the latest one
+## duration format e.g.: 2y5m7d3h for 2 years, 5 months, 7 days and 3 hours; 6m for 6 months; 67h for 67 hours
+retention_time: 7d
 
 ## S3 host
 # s3_backup_host:
@@ -12,8 +13,8 @@
 # s3_backup_access_key:
 # s3_backup_secret_key:
 
-## S3 bucket name
-# s3_backup_bucket:
+## S3 bucket URL
+# s3_backup_bucket_URL:
 
 ## S3 bucket location
 s3_backup_bucket_region: us-east-1
