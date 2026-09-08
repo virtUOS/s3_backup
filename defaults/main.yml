@@ -39,14 +39,12 @@ s3_backup_group: "{{ s3_backup_user }}"
 ##   If you need the path in your script, just use the TEMPDIE variable.
 ## - DATE:
 ##   Use the DATE variable to get the current date and time in the formnat 20260213-085111
-## - s3_put:
-##   Use the s3_put command as a shortcut to upload files to S3.
-##   The file will be uploaded to s3_backup_base_path.
-##   s3_put src/backup.sql.gz dest/backup.sql.gz
+## - restic backup:
+##   Use the restic backup command to add snapshots of files/directories to the restic repository.
 # s3_backup_script: |
-#   FILENAME="${DATE}.sql.gz"
-#   mysqldump -u root --no-data dbname | gzip > "${TEMPDIE}/${FILENAME}"
-#   s3_put "${FILENAME}" "${FILENAME}"
+#   mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
+#        source /opt/backup/restic
+#        restic backup {DATE}.sql.gz
 
 ## Path for backup metrics
 ## If empty, no metrics will be publishe
