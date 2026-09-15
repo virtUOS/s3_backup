@@ -2,8 +2,12 @@
 ## password used to access the restic repository on the bucket
 # restic_repository_password:
 
-## The maximum amount of days a snapshot is being kept, in relation to the creation time of the latest one
-## duration format e.g.: 2y5m7d3h for 2 years, 5 months, 7 days and 3 hours; 6m for 6 months; 67h for 67 hours
+## The maximum amount of days a snapshot is
+## being kept in relation to the creation time of the latest one
+## duration format e.g.:
+## 2y5m7d3h for 2 years, 5 months, 7 days and 3 hours
+## 6m for 6 months
+##67h for 67 hours
 retention_time: 7d
 
 ## S3 host
@@ -35,12 +39,15 @@ s3_backup_group: "{{ s3_backup_user }}"
 ## This should be a POSIX compliant shell script
 ## - TEMPDIR:
 ##   A temporary directory will be created and cleaned up automatically.
-##   The backup script will run in that patch. So you can just write to the local directory.
+##   The backup script will run in that patch.
+##   So you can just write to the local directory.
 ##   If you need the path in your script, just use the TEMPDIE variable.
 ## - DATE:
-##   Use the DATE variable to get the current date and time in the formnat 20260213-085111
+##   Use the DATE variable to get the current date and time
+##   in the formnat 20260213-085111
 ## - restic backup:
-##   Use the restic backup command to add snapshots of files/directories to the restic repository.
+##   Use the restic backup command
+##   to add snapshots of files/directories to the restic repository.
 # s3_backup_script: |
 #   mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
 #        source /opt/backup/restic.env
