@@ -22,7 +22,7 @@
 - name: If not done yet, initialize restic repository
   ansible.builtin.shell: >
       source /opt/backup/restic.env &&
-     (restic snapshots || restic init)
+      (restic snapshots || restic init)
   args:
     executable: /bin/bash
 

@@ -7,7 +7,7 @@
 ## duration format e.g.:
 ## 2y5m7d3h for 2 years, 5 months, 7 days and 3 hours
 ## 6m for 6 months
-##67h for 67 hours
+## 67h for 67 hours
 retention_time: 7d
 
 ## S3 host
