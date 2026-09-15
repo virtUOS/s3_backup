@@ -4,8 +4,23 @@
     name:
       - restic
 
+- name: Configure backup script and restic.env file
+  ansible.builtin.template:
+    src: '{{ item.sourcce }}'
+    dest: /opt/backup/{{ item.dest }}
+    mode: '{{ item.mode }}'
+    owner: '{{ s3_backup_user }}'
+    group: '{{ s3_backup_group }}'
+  loop:
+    - source: backup
+      dest: backup
+      mode: '0700'
+    - source: restic.env.j2
+      dest: restic.env
+      mode: '0700'
+
 - name: If not done yet, initialize restic repository
-  ansible.builtin.shell: source /opt/backup/restic && (restic snapshots || restic init)
+  ansible.builtin.shell: source /opt/backup/restic.env && (restic snapshots || restic init)
 
 - name: Create script folder
   ansible.builtin.file:
@@ -14,19 +29,6 @@
     mode: '0755'
     owner: root
     group: root
-
-- name: Configure backup script
-  ansible.builtin.template:
-    src: '{{ item.name }}'
-    dest: /opt/backup/{{ item.name }}
-    mode: '{{ item.mode }}'
-    owner: '{{ s3_backup_user }}'
-    group: '{{ s3_backup_group }}'
-  loop:
-    - name: backup
-      mode: '0700'
-    - name: restic
-      mode: '0700'
 
 - name: Install backup service
   ansible.builtin.template:

@@ -12,9 +12,9 @@ cd "${TEMPDIR}"
 clean_up() {
   rm -fr "$TEMPDIR"
   #read the environment variables restic needs
-  source /opt/backup/restic
+  source /opt/backup/restic.env
   #delete the snapshots that are older than retention_time days than the creation time of the latest one, regardless of paths
-  restic forget --keep-within {{retention_time}}d --group-by host --prune
+  restic forget --keep-within {{retention_time}} --group-by host --prune
 }
 
 # Set up the trap to call clean_up on exit

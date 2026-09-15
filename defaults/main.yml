@@ -43,7 +43,7 @@ s3_backup_group: "{{ s3_backup_user }}"
 ##   Use the restic backup command to add snapshots of files/directories to the restic repository.
 # s3_backup_script: |
 #   mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
-#        source /opt/backup/restic
+#        source /opt/backup/restic.env
 #        restic backup {DATE}.sql.gz
 
 ## Path for backup metrics

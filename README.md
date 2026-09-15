@@ -8,11 +8,11 @@ A backup tool that utilizes deduplication to minimize storage requirements for b
 encrypted repository on the s3 bucket.
 
 Listing all snapshots: 
-- Load the credentials saved in the environment variables using `source /opt/backup/restic` 
+- Load the credentials saved in the environment variables using `source /opt/backup/restic.env` 
 - use `restic snapshots`to list all snapshots
 
 Restoring from backup:
-- Load the credentials saved in the environment variables using `source /opt/backup/restic` 
+- Load the credentials saved in the environment variables using `source /opt/backup/restic.env` 
 - use `sudo -E restic restore [snapshot name] --target [local path]` to copy the files saved by that snapshot to the path
 
 It is also possible to restore/exclude/include specific files/directories. For more information visit the [restic documentation](https://restic.readthedocs.io/en/stable/).
@@ -65,7 +65,7 @@ Your playbook, could look like this:
       restic_repository_password: password
       s3_backup_script: |
         mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
-        source /opt/backup/restic
+        source /opt/backup/restic.env
         restic backup {DATE}.sql.gz
 ```
 
