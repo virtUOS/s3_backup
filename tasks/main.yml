@@ -25,6 +25,8 @@
       (restic snapshots || restic init)
   args:
     executable: /bin/bash
+  register: restic_repo
+  changed_when: "'created restic repository' in restic_repo.stdout"
 
 - name: Create script folder
   ansible.builtin.file:
