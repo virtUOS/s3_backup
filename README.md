@@ -7,13 +7,19 @@ an S3 bucket with restic.
 A backup tool that utilizes deduplication to minimize storage requirements for backups. It saves snapshots (backups) to an
 encrypted repository on the s3 bucket.
 
-Listing all snapshots: 
-- Load the credentials saved in the environment variables using `source /opt/backup/restic.env` 
-- use `restic snapshots`to list all snapshots
+#### Listing all snapshots:
+Load the credentials saved in the environment variables and list all snapshots using: <br>
+```bash
+source /opt/backup/restic.env 
+restic snapshots
+```
 
-Restoring from backup:
-- Load the credentials saved in the environment variables using `source /opt/backup/restic.env` 
-- use `sudo -E restic restore [snapshot name] --target [local path]` to copy the files saved by that snapshot to the path
+#### Restoring from backup:
+Load the credentials saved in the environment variables and copy the files saved by that snapshot to the path: <br>
+```bash
+source /opt/backup/restic.env 
+sudo -E restic restore [snapshot name] --target [local path]
+```
 
 It is also possible to restore/exclude/include specific files/directories. For more information visit the [restic documentation](https://restic.readthedocs.io/en/stable/).
 
