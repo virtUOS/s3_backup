@@ -15,7 +15,7 @@ restic snapshots
 ```
 
 #### Restoring from backup:
-Load the credentials saved in the environment variables and copy the files saved by that snapshot to the path: <br>
+Load the credentials saved in the environment variables and copy the files saved by that snapshot to the path using: <br>
 ```bash
 source /opt/backup/restic.env 
 sudo -E restic restore [snapshot name] --target [local path]
@@ -72,7 +72,7 @@ Your playbook, could look like this:
       s3_backup_script: |
         mysqldump -u root --no-data dbname | gzip > "${DATE}.sql.gz"
         source /opt/backup/restic.env
-        restic backup {DATE}.sql.gz
+        restic backup ${DATE}.sql.gz
 ```
 
 ## License

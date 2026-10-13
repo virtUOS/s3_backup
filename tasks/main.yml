@@ -1,4 +1,11 @@
 ---
+- name: If working on the Red Hat operating system, install EPEL
+  ansible.builtin.package:
+    name:
+      -EPEL
+  when: ansible_facts['os_family'] == "Red Hat"
+
+
 - name: Install dependencies
   ansible.builtin.package:
     name:
